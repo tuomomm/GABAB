@@ -34,31 +34,21 @@ of interest are the amounts of Gibg-bound GIRK channels) and two pre-
 synaptic simulations (here, of interest are the amount of Gibg-bound
 vs non-bound VGCCs). The script outputs four important lines:
 
-paramdict = {'k[0]': 111.531, 'k[1,9]': 708.687, 'k[3,4,5,6,7,8]': 165.616,
-             'k[15,17,19,21,23]': 10.797, 'k[16,18,20,22,24]': 93.218, 'OnlyExp0_RGS': 2.903,
-             'OnlyExp1_RGS': 1.728, 'OnlyExp2_RGS': 2.235, 'gaba_flux': 2797.567}
---This is the parameter dictionary, showing the alterations of each
-  parameter as obtained from a multi-objective optimization (not
-  described here)
+paramdict = {'k[0]': 111.531, 'k[1,9]': 708.687, 'k[3,4,5,6,7,8]': 165.616, 'k[15,17,19,21,23]': 10.797, 'k[16,18,20,22,24]': 93.218, 'OnlyExp0_RGS': 2.903, 'OnlyExp1_RGS': 1.728, 'OnlyExp2_RGS': 2.235, 'gaba_flux': 2797.567}
+--This is the parameter dictionary, showing the alterations of each parameter as obtained from a multi-objective optimization (not described here)
 
-python3 model_nrn_extfilename.py 1010000.0 1e-07 1000000.0 1 1 50.0 2797.567 1 1 None VGCC,RGS 0.0,2.903 0,1,9,2,10,3,4,5,6,7,8,15,17,19,21,23,16,18,20,22,24
-        111.531,708.687,708.687,86.60863827,86.60863827,165.616,165.616,165.616,165.616,165.616,165.616,10.797,10.797,10.797,10.797,10.797,93.218,93.218,93.218,93.218,93.218
-        fitXXXXXXXXXX_0.mat 5
+python3 model_nrn_extfilename.py 1010000.0 1e-07 1000000.0 1 1 50.0 2797.567 1 1 None VGCC,RGS 0.0,2.903 0,1,9,2,10,3,4,5,6,7,8,15,17,19,21,23,16,18,20,22,24 111.531,708.687,708.687,86.60863827,86.60863827,165.616,165.616,165.616,165.616,165.616,165.616,10.797,10.797,10.797,10.797,10.797,93.218,93.218,93.218,93.218,93.218 fitXXXXXXXXXX_0.mat 5
 --This is the script for running the post-synaptic simulation (the command is not only printed
   but also executed inline in the script drawfig_fit.py). The command describes the simulation
   parameters (length of simulation, start of stimulation, etc.), including the parameter
   alterations (processed values of paramdict). The results will be saved to fitXXXXXXXXXX_0.mat.
   In the post-synaptic simulation, no VGCCs are present (VGCC concentration is multiplied by 0),
 
-python3 model_nrn_extfilename.py 1010000.0 1e-07 1000000.0 1 1 50.0 2797.567 1 1 None GIRK,RGS 0.0,1.728 0,1,9,2,10,3,4,5,6,7,8,15,17,19,21,23,16,18,20,22,24
-        111.531,708.687,708.687,86.60863827,86.60863827,165.616,165.616,165.616,165.616,165.616,165.616,10.797,10.797,10.797,10.797,10.797,93.218,93.218,93.218,93.218,93.218
-        fitXXXXXXXXXX_0.mat 5
+python3 model_nrn_extfilename.py 1010000.0 1e-07 1000000.0 1 1 50.0 2797.567 1 1 None GIRK,RGS 0.0,1.728 0,1,9,2,10,3,4,5,6,7,8,15,17,19,21,23,16,18,20,22,24 111.531,708.687,708.687,86.60863827,86.60863827,165.616,165.616,165.616,165.616,165.616,165.616,10.797,10.797,10.797,10.797,10.797,93.218,93.218,93.218,93.218,93.218 fitXXXXXXXXXX_0.mat 5
 --The same as above, but with slightly different parameters (no GIRK channels but a default
   amount of VGCCs)
 
-python3 model_nrn_extfilename.py 1010000.0 1e-07 1000000.0 1 1 50.0 2797.567 1 1 None GIRK,RGS 0.0,2.235 0,1,9,2,10,3,4,5,6,7,8,15,17,19,21,23,16,18,20,22,24
-  111.531,708.687,708.687,86.60863827,86.60863827,165.616,165.616,165.616,165.616,165.616,165.616,10.797,10.797,10.797,10.797,10.797,93.218,93.218,93.218,93.218,93.218
-  fitXXXXXXXXXX_0.mat 5
+python3 model_nrn_extfilename.py 1010000.0 1e-07 1000000.0 1 1 50.0 2797.567 1 1 None GIRK,RGS 0.0,2.235 0,1,9,2,10,3,4,5,6,7,8,15,17,19,21,23,16,18,20,22,24 111.531,708.687,708.687,86.60863827,86.60863827,165.616,165.616,165.616,165.616,165.616,165.616,10.797,10.797,10.797,10.797,10.797,93.218,93.218,93.218,93.218,93.218 fitXXXXXXXXXX_0.mat 5
 --The same as above, but with slightly different parameters (different amount of RGS proteins)
 
 The simulation results will be saved in fig_fit.eps (summary of the three simulations, plotted
