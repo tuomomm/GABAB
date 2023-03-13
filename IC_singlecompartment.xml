@@ -1,0 +1,24 @@
+<InitialConditions>
+  <ConcentrationSet>
+    <NanoMolarity specieID="gaba" value="0"/>
+    <NanoMolarity specieID="gabaOut" value="0"/>
+    <NanoMolarity specieID="GABABR" value="400"/> <!--Estimated from PMC7177735: 50/um2 gives 415nM in a spine of volume 0.5um3 and area 2.5um2--> 
+    <NanoMolarity specieID="gabaGABABR" value="0"/>
+    <NanoMolarity specieID="Gi" value="2600"/> <!-- From Maki-Marttunen et al. 2020-->
+    <NanoMolarity specieID="GABABRGi" value="0"/>
+    <NanoMolarity specieID="gabaGABABRGi" value="0"/>
+    <NanoMolarity specieID="gabaGABABRGibg" value="0"/>
+    <NanoMolarity specieID="GiaGTP" value="0"/>
+    <NanoMolarity specieID="GiaGDP" value="0"/>
+    <NanoMolarity specieID="RGS" value="1000"/> <!-- This will be fitted. Here the concentration of PLA2 from Maki-Marttunen et al. 2020 and Gallimore et al. 2018 used -->
+    <NanoMolarity specieID="GiaGTPRGS" value="0"/>
+    <NanoMolarity specieID="Gibg" value="0"/>
+    <NanoMolarity specieID="GIRK" value="1000"/> <!--Estimated from PMC9490896: (75+52+6)/um2 gives 1104nM in a spine of volume 0.5um3 and area 2.5um2--> 
+    <NanoMolarity specieID="VGCC" value="100"/> <!-- There are on average 42 VGCCs in each spine (varied between 5-218, PMC4891200), but not all of them are N-type. 100nM means 30 channels in a 0.5um3 spine-->
+    <NanoMolarity specieID="GIRKGibg" value="0"/>
+    <NanoMolarity specieID="GIRKGibg2" value="0"/>
+    <NanoMolarity specieID="GIRKGibg3" value="0"/>
+    <NanoMolarity specieID="GIRKGibg4" value="0"/>
+    <NanoMolarity specieID="VGCCGibg" value="0"/>
+  </ConcentrationSet>
+</InitialConditions>

@@ -1,0 +1,156 @@
+<ReactionScheme>
+  <Specie name="gaba" id="gaba" kdiff="111.4" kdiffunit="mu2/s"/>
+  <Specie name="gabaOut" id="gabaOut" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="GABABR" id="GABABR" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="gabaGABABR" id="gabaGABABR" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="Gi" id="Gi" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="GABABRGi" id="GABABRGi" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="gabaGABABRGi" id="gabaGABABRGi" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="gabaGABABRGibg" id="gabaGABABRGibg" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="GiaGTP" id="GiaGTP" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="GiaGDP" id="GiaGDP" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="RGS" id="RGS" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="GiaGTPRGS" id="GiaGTPRGS" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="Gibg" id="Gibg" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="GIRK" id="GIRK" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="VGCC" id="VGCC" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="GIRKGibg" id="GIRKGibg" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="GIRKGibg2" id="GIRKGibg2" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="GIRKGibg3" id="GIRKGibg3" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="GIRKGibg4" id="GIRKGibg4" kdiff="0" kdiffunit="mu2/s"/>
+  <Specie name="VGCCGibg" id="VGCCGibg" kdiff="0" kdiffunit="mu2/s"/>
+
+<!--Tuomo: GABA leak out of the area near the membrane to the rest of the extracellular medium copied from the corresponding reaction Glu->GluOut in Maki-Marttunen et al. 2020-->
+<!--Tuomo: Binding of gaba to GABABR copied from the reactions between L and R in Jedrzejewska-Sczmek et al. 2017-->
+<!--Tuomo: Activation of Gi protein copied from the reactions between quatro-phosphorylated receptor and Gi in Jedrzejewska-Sczmek et al. 2017-->
+
+  <Reaction name = "gaba--gabaOut" id="gaba--gabaOut">
+    <Reactant specieID="gaba"/>
+      <Product specieID="gabaOut"/>
+      <forwardRate>5e-4</forwardRate>
+      <reverseRate>0</reverseRate>
+      <Q10>0.2</Q10>
+  </Reaction>
+
+    <Reaction name = "gaba_GABABR_bind" id="gaba_GABABR_bind">
+        <Reactant specieID="gaba"/>
+        <Reactant specieID="GABABR"/>
+        <Product specieID="gabaGABABR"/>
+        <forwardRate>5.555e-06</forwardRate>
+        <reverseRate>0.005</reverseRate>
+        <Q10>0.2</Q10>
+    </Reaction>
+
+    <Reaction name = "gabaGABABRGi_bind" id="gabaGABABRGi_bind">
+        <Reactant specieID="gabaGABABR"/>
+        <Reactant specieID="Gi"/>
+        <Product specieID="gabaGABABRGi"/>
+        <forwardRate>0.15e-3</forwardRate>
+        <reverseRate>0.25e-3</reverseRate>
+        <Q10>0.2</Q10>
+    </Reaction>
+    <Reaction name = "GiaGTP_prod" id="GiaGTP_prod">
+        <Reactant specieID="gabaGABABRGi"/>
+        <Product specieID="gabaGABABRGibg"/>
+        <Product specieID="GiaGTP"/>
+        <forwardRate>0.125e-3</forwardRate>
+        <reverseRate>0</reverseRate>
+        <Q10>0.2</Q10>
+    </Reaction>
+    <Reaction name = "gabaGABABRGbg_disso" id="gabaGABABRGbg_disso">
+        <Reactant specieID="gabaGABABRGibg"/>
+        <Product specieID="gabaGABABR"/>
+        <Product specieID="Gibg"/>
+        <forwardRate>1e-3</forwardRate>
+        <reverseRate>0</reverseRate>
+        <Q10>0.2</Q10>
+    </Reaction>
+
+<!-- 5ae) GABABR + Gi -> GABABRGi -->
+    <Reaction name = "GABABRGi_bind" id="GABABRGi_bind">
+        <Reactant specieID="GABABR"/>
+        <Reactant specieID="Gi"/>
+        <Product specieID="GABABRGi"/>
+        <forwardRate>0.075e-3</forwardRate>
+        <reverseRate>0.125e-3</reverseRate>
+        <Q10>0.2</Q10>
+    </Reaction>
+    <!--Tuomo: added this reaction; otherwise GABABR binding to Gi without ligand would be antagonistic to Gi activation-->
+    <Reaction name = "gaba_GABABRGi_bind" id="gaba_GABABRGi_bind">
+        <Reactant specieID="gaba"/>
+        <Reactant specieID="GABABRGi"/>
+        <Product specieID="gabaGABABRGi"/>
+        <forwardRate>5.555e-06</forwardRate>
+        <reverseRate>0.005</reverseRate>
+        <Q10>0.2</Q10>
+    </Reaction>
+    <!-- 5af and 5ag removed: no production of GiaGTP or Gibg without binding with gaba!-->
+
+<!-- 6b) GiaGTP -> GiaGDP    --> <!--Tuomo: the direct conversion replaced by RGS-mediated hydrolysis. Rates taken as such from Zhong et al. 2003 "A Spatial Focusing Model for G Protein Signals"-->
+    <Reaction name = "GiaGTP_RGS_bind" id="GiaGTP_RGS_bind">
+        <Reactant specieID="GiaGTP"/>
+        <Reactant specieID="RGS"/>
+        <Product specieID="GiaGTPRGS"/>
+        <forwardRate>2e-6</forwardRate>
+        <reverseRate>0.002</reverseRate>
+        <Q10>0.2</Q10>
+    </Reaction>
+    <Reaction name = "GiaGTP_RGS_cat" id="GiaGTP_RGS_cat">
+        <Reactant specieID="GiaGTPRGS"/>
+        <Product specieID="GiaGDP"/>
+        <Product specieID="RGS"/>
+        <forwardRate>30e-3</forwardRate>
+        <reverseRate>0</reverseRate>
+        <Q10>0.2</Q10>
+    </Reaction>
+<!-- 7b) GiaGDP + Gbg -> Gi    -->
+    <Reaction name = "Gi_form" id="Gi_form">
+        <Reactant specieID="GiaGDP"/>
+        <Reactant specieID="Gibg"/>
+        <Product specieID="Gi"/>
+        <forwardRate>1.25e-3</forwardRate>
+        <reverseRate>0</reverseRate>
+        <Q10>0.2</Q10>
+    </Reaction>
+
+    <Reaction name = "GIRK_Gibg_bind" id="GIRK_Gibg_bind">
+        <Reactant specieID="GIRK"/>
+        <Reactant specieID="Gibg"/>
+        <Product specieID="GIRKGibg"/>
+        <forwardRate>14e-6</forwardRate>
+        <reverseRate>1e-3</reverseRate>
+        <Q10>0.2</Q10>
+    </Reaction>
+    <Reaction name = "GIRKGibg_Gibg_bind" id="GIRKGibg_Gibg_bind">
+        <Reactant specieID="GIRKGibg"/>
+        <Reactant specieID="Gibg"/>
+        <Product specieID="GIRKGibg2"/>
+        <forwardRate>14e-6</forwardRate>
+        <reverseRate>1e-3</reverseRate>
+        <Q10>0.2</Q10>
+    </Reaction>
+    <Reaction name = "GIRKGibg2_Gibg_bind" id="GIRKGibg2_Gibg_bind">
+        <Reactant specieID="GIRKGibg2"/>
+        <Reactant specieID="Gibg"/>
+        <Product specieID="GIRKGibg3"/>
+        <forwardRate>14e-6</forwardRate>
+        <reverseRate>1e-3</reverseRate>
+        <Q10>0.2</Q10>
+    </Reaction>
+    <Reaction name = "GIRKGibg3_Gibg_bind" id="GIRKGibg3_Gibg_bind">
+        <Reactant specieID="GIRKGibg3"/>
+        <Reactant specieID="Gibg"/>
+        <Product specieID="GIRKGibg4"/>
+        <forwardRate>14e-6</forwardRate>
+        <reverseRate>1e-3</reverseRate>
+        <Q10>0.2</Q10>
+    </Reaction>
+    <Reaction name = "VGCC_Gibg_bind" id="VGCC_Gibg_bind">
+        <Reactant specieID="VGCC"/>
+        <Reactant specieID="Gibg"/>
+        <Product specieID="VGCCGibg"/>
+        <forwardRate>14e-6</forwardRate>
+        <reverseRate>1e-3</reverseRate>
+        <Q10>0.2</Q10>
+    </Reaction>
+</ReactionScheme>
